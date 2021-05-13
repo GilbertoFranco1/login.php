@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include('conexao.php');
 
 if (empty($_POST['usuario']) || empty($_POST['senha'])){
@@ -20,4 +20,11 @@ $result = mysqli_query($conexao, $query);
 
 $row = mysqli_num_rows($result);
 
-echo $row;exit;
+if($row == 1){
+    $_SESSION['usuario'] = $usuario;
+    header('Location: painel.php');
+    exit();
+}else{
+    header('Location: login.php');
+    exit();
+}
